@@ -1,0 +1,1074 @@
+{
+  "name": "HR tool",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "form",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "337e609f-cea1-4b7a-b51c-3a394b1fd839",
+      "name": "Webhook",
+      "webhookId": "cbf38aee-ce87-421e-997a-81d365a864bb"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1z2y_040_KUYcK4R1fAS3I82uiFrKPqSKOeL3dbYophI",
+          "mode": "list",
+          "cachedResultName": "Applicants data",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1z2y_040_KUYcK4R1fAS3I82uiFrKPqSKOeL3dbYophI/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Raw",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1z2y_040_KUYcK4R1fAS3I82uiFrKPqSKOeL3dbYophI/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Name": "={{ $json.body.fullname }}",
+            "Email": "={{ $json.body.email }}",
+            "Phone": "={{ $json.body.phone }}",
+            "Linkedin": "={{ $json.body.linkedin }}",
+            "Portfolio": "={{ $json.body.portfolio }}",
+            "Expected salary": "={{ $json.body.expected_salary }}",
+            "Availability": "={{ $json.body.availability }}",
+            "Experience": "={{ $json.body.experience_years }}",
+            "Skills": "={{ $json.body.skills }}",
+            "Cover letter": "={{ $json.body.cover_letter }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Name",
+              "displayName": "Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Phone",
+              "displayName": "Phone",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Linkedin",
+              "displayName": "Linkedin",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Portfolio",
+              "displayName": "Portfolio",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Experience",
+              "displayName": "Experience",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Skills",
+              "displayName": "Skills",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Cover letter",
+              "displayName": "Cover letter",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Availability",
+              "displayName": "Availability",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Expected salary",
+              "displayName": "Expected salary",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        448,
+        0
+      ],
+      "id": "2eeb0bc2-5510-4be6-9ca3-7a7e5aab0df8",
+      "name": "Raw applicants data",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "DTzmE2tPJySUCn9U",
+          "name": "Google Sheets account 3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "6260c8b8-4914-49c8-8ac0-875ce9bba5a4",
+              "leftValue": "={{ $json.body.experience_years }}",
+              "rightValue": 2,
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.2,
+      "position": [
+        448,
+        160
+      ],
+      "id": "e4edcc80-bcb9-472c-8837-2c2577de58fb",
+      "name": "Experience filter"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "c9bd0162-2366-4c5f-922c-5e57bccab30e",
+              "leftValue": "={{ $json.body.expected_salary.toNumber() }}",
+              "rightValue": 4200,
+              "operator": {
+                "type": "number",
+                "operation": "lt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.2,
+      "position": [
+        448,
+        320
+      ],
+      "id": "db24f3fc-4f31-4437-adf8-86a8e7abf7a0",
+      "name": "Salary filter"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1z2y_040_KUYcK4R1fAS3I82uiFrKPqSKOeL3dbYophI",
+          "mode": "list",
+          "cachedResultName": "Applicants data",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1z2y_040_KUYcK4R1fAS3I82uiFrKPqSKOeL3dbYophI/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1517962512,
+          "mode": "list",
+          "cachedResultName": "Experience",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1z2y_040_KUYcK4R1fAS3I82uiFrKPqSKOeL3dbYophI/edit#gid=1517962512"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Name": "={{ $json.body.fullname }}",
+            "Email": "={{ $json.body.email }}",
+            "Phone": "={{ $json.body.phone }}",
+            "Linkedin": "={{ $json.body.linkedin }}",
+            "Portfolio": "={{ $json.body.portfolio }}",
+            "Expected salary": "={{ $json.body.expected_salary }}",
+            "Availability": "={{ $json.body.availability }}",
+            "Experience": "={{ $json.body.experience_years }}",
+            "Skills": "={{ $json.body.skills }}",
+            "Cover letter": "={{ $json.body.cover_letter }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Name",
+              "displayName": "Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Phone",
+              "displayName": "Phone",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Linkedin",
+              "displayName": "Linkedin",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Portfolio",
+              "displayName": "Portfolio",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Experience",
+              "displayName": "Experience",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Skills",
+              "displayName": "Skills",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Cover letter",
+              "displayName": "Cover letter",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Availability",
+              "displayName": "Availability",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Expected salary",
+              "displayName": "Expected salary",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        640,
+        160
+      ],
+      "id": "57a94a98-1a9a-43dd-b296-35ccf5bae72b",
+      "name": "Filtered data (experience)",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "DTzmE2tPJySUCn9U",
+          "name": "Google Sheets account 3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1z2y_040_KUYcK4R1fAS3I82uiFrKPqSKOeL3dbYophI",
+          "mode": "list",
+          "cachedResultName": "Applicants data",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1z2y_040_KUYcK4R1fAS3I82uiFrKPqSKOeL3dbYophI/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1280276919,
+          "mode": "list",
+          "cachedResultName": "Salary",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1z2y_040_KUYcK4R1fAS3I82uiFrKPqSKOeL3dbYophI/edit#gid=1280276919"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Name": "={{ $json.body.fullname }}",
+            "Email": "={{ $json.body.email }}",
+            "Phone": "={{ $json.body.phone }}",
+            "Linkedin": "={{ $json.body.linkedin }}",
+            "Portfolio": "={{ $json.body.portfolio }}",
+            "Expected salary": "={{ $json.body.expected_salary }}",
+            "Availability": "={{ $json.body.availability }}",
+            "Experience": "={{ $json.body.experience_years }}",
+            "Skills": "={{ $json.body.skills }}",
+            "Cover letter": "={{ $json.body.cover_letter }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Name",
+              "displayName": "Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Phone",
+              "displayName": "Phone",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Linkedin",
+              "displayName": "Linkedin",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Portfolio",
+              "displayName": "Portfolio",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Experience",
+              "displayName": "Experience",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Skills",
+              "displayName": "Skills",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Cover letter",
+              "displayName": "Cover letter",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Availability",
+              "displayName": "Availability",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Expected salary",
+              "displayName": "Expected salary",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        640,
+        320
+      ],
+      "id": "d0e6cd49-c3c3-40f7-a729-432ce98f6a30",
+      "name": "Filtered data (salary)",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "DTzmE2tPJySUCn9U",
+          "name": "Google Sheets account 3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## JSON example\n {\n  \"position\": \"AI developer\",\n  \"fullname\": \"John Doe\",\n  \"email\": \"user@test.com\",\n  \"phone\": \"+481234567\",\n  \"linkedin\": \"https://linkedin.com/in/johndoe\",\n  \"experience_years\": 3,\n  \"skills\": [\"Python\", \"TensorFlow\", \"n8n\"],\n  \"portfolio\": \"https://johndoe.dev\",\n  \"cover_letter\": \"I am very motivated to join your company and contribute to AI projects.\",\n  \"availability\": \"Immediately\",\n  \"expected_salary\": \"4000\"\n}",
+        "height": 336,
+        "width": 368,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        912,
+        16
+      ],
+      "id": "5999eaaf-e617-41a5-b008-ee193db22583",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "a408885a-5585-477c-a1d7-4b5a3403b5d2",
+              "leftValue": "={{ $json.body.portfolio }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.2,
+      "position": [
+        448,
+        496
+      ],
+      "id": "7a6dfe76-6652-42c9-b554-62b79bf260b9",
+      "name": "Portfolio filter"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1z2y_040_KUYcK4R1fAS3I82uiFrKPqSKOeL3dbYophI",
+          "mode": "list",
+          "cachedResultName": "Applicants data",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1z2y_040_KUYcK4R1fAS3I82uiFrKPqSKOeL3dbYophI/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 194909353,
+          "mode": "list",
+          "cachedResultName": "Portfolio",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1z2y_040_KUYcK4R1fAS3I82uiFrKPqSKOeL3dbYophI/edit#gid=194909353"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Name": "={{ $json.body.fullname }}",
+            "Email": "={{ $json.body.email }}",
+            "Phone": "={{ $json.body.phone }}",
+            "Linkedin": "={{ $json.body.linkedin }}",
+            "Portfolio": "={{ $json.body.portfolio }}",
+            "Expected salary": "={{ $json.body.expected_salary }}",
+            "Availability": "={{ $json.body.availability }}",
+            "Experience": "={{ $json.body.experience_years }}",
+            "Skills": "={{ $json.body.skills }}",
+            "Cover letter": "={{ $json.body.cover_letter }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Name",
+              "displayName": "Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Phone",
+              "displayName": "Phone",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Linkedin",
+              "displayName": "Linkedin",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Portfolio",
+              "displayName": "Portfolio",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Experience",
+              "displayName": "Experience",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Skills",
+              "displayName": "Skills",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Cover letter",
+              "displayName": "Cover letter",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Availability",
+              "displayName": "Availability",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Expected salary",
+              "displayName": "Expected salary",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        640,
+        496
+      ],
+      "id": "eb1c8a46-085a-4b90-b323-0dddf3f92522",
+      "name": "Filtered data (portfolio)",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "DTzmE2tPJySUCn9U",
+          "name": "Google Sheets account 3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "933f405b-838b-42d3-abdb-bb55f03709aa",
+              "leftValue": "={{ $json.body.experience_years }}",
+              "rightValue": 2,
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            },
+            {
+              "id": "380fde3d-ba05-4abb-8df3-3300e952a222",
+              "leftValue": "={{ $json.body.portfolio }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "exists",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "130fd356-43aa-455a-884a-918bb4e94e3b",
+              "leftValue": "={{ $json.body.cover_letter }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.2,
+      "position": [
+        448,
+        672
+      ],
+      "id": "2f2600d9-6001-46fe-8a95-5d6db9a5bf2f",
+      "name": "Complex filter"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1z2y_040_KUYcK4R1fAS3I82uiFrKPqSKOeL3dbYophI",
+          "mode": "list",
+          "cachedResultName": "Applicants data",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1z2y_040_KUYcK4R1fAS3I82uiFrKPqSKOeL3dbYophI/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 208877687,
+          "mode": "list",
+          "cachedResultName": "Custom",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1z2y_040_KUYcK4R1fAS3I82uiFrKPqSKOeL3dbYophI/edit#gid=208877687"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Name": "={{ $json.body.fullname }}",
+            "Email": "={{ $json.body.email }}",
+            "Phone": "={{ $json.body.phone }}",
+            "Linkedin": "={{ $json.body.linkedin }}",
+            "Portfolio": "={{ $json.body.portfolio }}",
+            "Expected salary": "={{ $json.body.expected_salary }}",
+            "Availability": "={{ $json.body.availability }}",
+            "Experience": "={{ $json.body.experience_years }}",
+            "Skills": "={{ $json.body.skills }}",
+            "Cover letter": "={{ $json.body.cover_letter }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Name",
+              "displayName": "Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Phone",
+              "displayName": "Phone",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Linkedin",
+              "displayName": "Linkedin",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Portfolio",
+              "displayName": "Portfolio",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Experience",
+              "displayName": "Experience",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Skills",
+              "displayName": "Skills",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Cover letter",
+              "displayName": "Cover letter",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Availability",
+              "displayName": "Availability",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Expected salary",
+              "displayName": "Expected salary",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        848,
+        672
+      ],
+      "id": "2a6814f4-e299-4bd2-90b0-d275391f01a6",
+      "name": "Filtered data (custom)",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "DTzmE2tPJySUCn9U",
+          "name": "Google Sheets account 3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "d9259859-8c82-4455-ae4c-4aa3fd796471",
+              "leftValue": "={{ $json.body.skills }}",
+              "rightValue": "Python",
+              "operator": {
+                "type": "array",
+                "operation": "contains",
+                "rightType": "any"
+              }
+            },
+            {
+              "id": "dd608169-3cc6-4abb-94be-5bcfb4878f87",
+              "leftValue": "={{ $json.body.skills }}",
+              "rightValue": "python",
+              "operator": {
+                "type": "array",
+                "operation": "contains",
+                "rightType": "any"
+              }
+            },
+            {
+              "id": "c0dfb637-a3db-42f6-9f4f-2d5b4d73adac",
+              "leftValue": "={{ $json.body.skills }}",
+              "rightValue": "JavaScript",
+              "operator": {
+                "type": "array",
+                "operation": "contains",
+                "rightType": "any"
+              }
+            },
+            {
+              "id": "f21d2d8c-1c6e-444a-884e-a55d1dec3e79",
+              "leftValue": "={{ $json.body.skills }}",
+              "rightValue": "javascript",
+              "operator": {
+                "type": "array",
+                "operation": "contains",
+                "rightType": "any"
+              }
+            }
+          ],
+          "combinator": "or"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.2,
+      "position": [
+        656,
+        672
+      ],
+      "id": "a32b5d41-97e2-4be8-96cb-478b28e09a9d",
+      "name": "Skills filter"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Raw applicants data",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Experience filter",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Salary filter",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Portfolio filter",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Complex filter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Experience filter": {
+      "main": [
+        [
+          {
+            "node": "Filtered data (experience)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Salary filter": {
+      "main": [
+        [
+          {
+            "node": "Filtered data (salary)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Portfolio filter": {
+      "main": [
+        [
+          {
+            "node": "Filtered data (portfolio)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Complex filter": {
+      "main": [
+        [
+          {
+            "node": "Skills filter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Skills filter": {
+      "main": [
+        [
+          {
+            "node": "Filtered data (custom)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "0a1b4a40-887f-426d-bcb8-3c40d1c1d5dd",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "8b4c3aa613ccadba79b0266131eeaa5b2667b6f335ded7eeb2c5674ffd25dafa"
+  },
+  "id": "QYAZ8ybAIHndpMAf",
+  "tags": []
+}
